@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hridith | Building Resilient Systems</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23c2410c;stop-opacity:1'/%3E%3Cstop offset='100%25' style='stop-color:%239a3412;stop-opacity:1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23grad)'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='18' fill='white'%3EH%3C/text%3E%3C/svg%3E">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/moon" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --text-primary: #ffffff;
+      --text-secondary: #9ca3af;
+      --accent: #c2410c;
+      --blue-accent: #06b6d4;
+      --blue-hover: #0891b2;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    .fade-in-delay-1 { animation-delay: 0.1s; }
+    .fade-in-delay-2 { animation-delay: 0.2s; }
+    .fade-in-delay-3 { animation-delay: 0.3s; }
+    .fade-in-delay-4 { animation-delay: 0.4s; }
+    .fade-in-delay-5 { animation-delay: 0.5s; }
+    .fade-in-delay-6 { animation-delay: 0.6s; }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    
+    .float-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.7; }
+    }
+    
+    .pulse-glow {
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    
+    @keyframes star-drift {
+      0% {
+        transform: translate(0, 0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(-100px, -100vh);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes star-drift-alt {
+      0% {
+        transform: translate(0, 0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translate(80px, -100vh);
+        opacity: 0;
+      }
+    }
+    
+    .star {
+      position: absolute;
+      background: #c2410c;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    
+    .star-1 { width: 2px; height: 2px; left: 5%; top: 100%; animation: star-drift 25s linear infinite; animation-delay: 0s; }
+    .star-2 { width: 1px; height: 1px; left: 15%; top: 100%; animation: star-drift-alt 30s linear infinite; animation-delay: 2s; }
+    .star-3 { width: 2px; height: 2px; left: 25%; top: 100%; animation: star-drift 28s linear infinite; animation-delay: 5s; }
+    .star-4 { width: 1px; height: 1px; left: 35%; top: 100%; animation: star-drift-alt 32s linear infinite; animation-delay: 1s; }
+    .star-5 { width: 2px; height: 2px; left: 45%; top: 100%; animation: star-drift 27s linear infinite; animation-delay: 4s; }
+    .star-6 { width: 1px; height: 1px; left: 55%; top: 100%; animation: star-drift-alt 29s linear infinite; animation-delay: 3s; }
+    .star-7 { width: 2px; height: 2px; left: 65%; top: 100%; animation: star-drift 26s linear infinite; animation-delay: 6s; }
+    .star-8 { width: 1px; height: 1px; left: 75%; top: 100%; animation: star-drift-alt 31s linear infinite; animation-delay: 2s; }
+    .star-9 { width: 2px; height: 2px; left: 85%; top: 100%; animation: star-drift 33s linear infinite; animation-delay: 7s; }
+    .star-10 { width: 1px; height: 1px; left: 95%; top: 100%; animation: star-drift-alt 28s linear infinite; animation-delay: 1s; }
+    .star-11 { width: 2px; height: 2px; left: 10%; top: 100%; animation: star-drift 29s linear infinite; animation-delay: 8s; }
+    .star-12 { width: 1px; height: 1px; left: 20%; top: 100%; animation: star-drift-alt 27s linear infinite; animation-delay: 4s; }
+    .star-13 { width: 2px; height: 2px; left: 30%; top: 100%; animation: star-drift 31s linear infinite; animation-delay: 3s; }
+    .star-14 { width: 1px; height: 1px; left: 40%; top: 100%; animation: star-drift-alt 26s linear infinite; animation-delay: 5s; }
+    .star-15 { width: 2px; height: 2px; left: 50%; top: 100%; animation: star-drift 30s linear infinite; animation-delay: 2s; }
+    .star-16 { width: 1px; height: 1px; left: 60%; top: 100%; animation: star-drift-alt 32s linear infinite; animation-delay: 6s; }
+    .star-17 { width: 2px; height: 2px; left: 70%; top: 100%; animation: star-drift 28s linear infinite; animation-delay: 1s; }
+    .star-18 { width: 1px; height: 1px; left: 80%; top: 100%; animation: star-drift-alt 29s linear infinite; animation-delay: 7s; }
+    .star-19 { width: 2px; height: 2px; left: 90%; top: 100%; animation: star-drift 27s linear infinite; animation-delay: 4s; }
+    .star-20 { width: 1px; height: 1px; left: 12%; top: 100%; animation: star-drift-alt 33s linear infinite; animation-delay: 3s; }
+    
+    .service-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+    
+    .service-card:hover .service-icon {
+      transform: scale(1.05);
+    }
+    
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background-color: #06b6d4;
+      box-shadow: 0 8px 30px rgba(6, 182, 212, 0.3);
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #06b6d4;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link:hover {
+      color: #06b6d4;
+    }
+    
+    .grid-pattern {
+      background-image: 
+        linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    
+    .gradient-border {
+      position: relative;
+    }
+    
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(194, 65, 12, 0.3), transparent);
+    }
+    
+    .service-icon {
+      transition: transform 0.4s ease;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #06b6d4;
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+    }
+    
+    .logo-mark {
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    .logo-mark:hover {
+      transform: rotate(360deg) scale(1.1);
+    }
+    
+    @keyframes logo-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
+    }
+    
+    .logo-mark:hover {
+      animation: logo-pulse 1.5s ease-in-out;
+    }
+    
+    @keyframes scan-vertical {
+      0% { top: 0; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-[#0a0a0a] text-white overflow-x-hidden"><!-- Animated Background Stars -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+   <div class="star star-1"></div>
+   <div class="star star-2"></div>
+   <div class="star star-3"></div>
+   <div class="star star-4"></div>
+   <div class="star star-5"></div>
+   <div class="star star-6"></div>
+   <div class="star star-7"></div>
+   <div class="star star-8"></div>
+   <div class="star star-9"></div>
+   <div class="star star-10"></div>
+   <div class="star star-11"></div>
+   <div class="star star-12"></div>
+   <div class="star star-13"></div>
+   <div class="star star-14"></div>
+   <div class="star star-15"></div>
+   <div class="star star-16"></div>
+   <div class="star star-17"></div>
+   <div class="star star-18"></div>
+   <div class="star star-19"></div>
+   <div class="star star-20"></div>
+  </div>
+  <div class="app-wrapper w-full h-full overflow-auto relative z-10"><!-- Navigation -->
+   <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+     <div class="flex items-center justify-between h-20"><!-- Logo -->
+      <div class="flex items-center gap-3">
+       <div class="w-10 h-10 bg-gradient-to-br from-[#c2410c] to-[#9a3412] rounded-lg flex items-center justify-center"><span class="text-white font-bold text-xl">H</span>
+       </div><span id="nav-logo" class="text-xl font-bold tracking-wide text-white">HRIDITH</span>
+      </div><!-- Nav Links -->
+      <div class="hidden md:flex items-center gap-10"><a href="#services" class="nav-link text-sm text-[#9ca3af] hover:text-white tracking-wide">Services</a> <a href="#expertise" class="nav-link text-sm text-[#9ca3af] hover:text-white tracking-wide">Expertise</a> <a href="#approach" class="nav-link text-sm text-[#9ca3af] hover:text-white tracking-wide">Approach</a> <a href="#contact" class="btn-primary px-6 py-2.5 bg-[#c2410c] text-white text-sm font-medium tracking-wide rounded"> Contact </a>
+      </div><!-- Mobile Menu Button --> <button class="md:hidden p-2" onclick="toggleMobileMenu()">
+       <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+       </svg></button>
+     </div>
+    </div><!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#1a1a1a] border-t border-white/5">
+     <div class="px-6 py-6 space-y-4"><a href="#services" class="block text-[#9ca3af] hover:text-white py-2">Services</a> <a href="#expertise" class="block text-[#9ca3af] hover:text-white py-2">Expertise</a> <a href="#approach" class="block text-[#9ca3af] hover:text-white py-2">Approach</a> <a href="#contact" class="block w-full text-center py-3 bg-[#c2410c] text-white font-medium rounded mt-4">Contact</a>
+     </div>
+    </div>
+   </nav><!-- Hero Section -->
+   <section class="relative min-h-screen flex items-center justify-center grid-pattern pt-20"><!-- Decorative Elements -->
+    <div class="absolute top-1/4 left-10 w-72 h-72 bg-[#c2410c]/5 rounded-full blur-3xl pulse-glow"></div>
+    <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-[#c2410c]/3 rounded-full blur-3xl pulse-glow" style="animation-delay: 2s;"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+     <div class="grid lg:grid-cols-1 gap-16 items-center max-w-4xl mx-auto"><!-- Left Content -->
+      <div>
+       <div class="fade-in mb-8">
+        <div class="flex items-center gap-3">
+         <div class="w-12 h-12 bg-gradient-to-br from-[#c2410c] to-[#9a3412] rounded-lg flex items-center justify-center"><span class="text-white font-bold text-2xl">H</span>
+         </div><span class="text-2xl font-bold tracking-wide text-white">HRIDITH</span>
+        </div>
+       </div>
+       <h1 id="hero-statement" class="fade-in fade-in-delay-1 text-4xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight mb-6">Building resilient systems for the modern enterprise</h1>
+       <p id="hero-description" class="fade-in fade-in-delay-2 text-lg text-[#9ca3af] leading-relaxed mb-6">We architect, automate, and optimize infrastructure at scale. Deep technical expertise in DevOps, Cloud, and AI-driven systems.</p>
+       <p class="fade-in fade-in-delay-2 text-sm text-[#6b7280] leading-relaxed mb-8">Experience across regulated and high-availability environments, designing platforms that handle millions of requests per day.</p>
+       <div class="fade-in fade-in-delay-3 flex flex-col sm:flex-row items-start gap-4"><a href="#services" class="btn-primary px-8 py-3.5 bg-[#c2410c] text-white font-medium tracking-wide rounded"> Explore Services </a>
+       </div><!-- Technical Indicators -->
+       <div class="fade-in fade-in-delay-4 mt-12 pt-8 border-t border-white/5">
+        <div class="grid grid-cols-3 gap-8">
+         <div>
+          <div class="text-[#c2410c] font-semibold mb-2 text-xl">
+           Systems Thinking
+          </div>
+          <div class="text-[#6b7280] text-sm tracking-wide">
+           Architecture-first approach
+          </div>
+         </div>
+         <div>
+          <div class="text-[#c2410c] font-semibold mb-2 text-xl">
+           Production Experience
+          </div>
+          <div class="text-[#6b7280] text-sm tracking-wide">
+           Real-world implementation
+          </div>
+         </div>
+         <div>
+          <div class="text-[#c2410c] font-semibold mb-2 text-xl">
+           Long-Term Focus
+          </div>
+          <div class="text-[#6b7280] text-sm tracking-wide">
+           Built to scale and evolve
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Scroll Indicator -->
+     <div class="fade-in fade-in-delay-6 absolute bottom-12 left-1/2 -translate-x-1/2">
+      <div class="flex flex-col items-center gap-2">
+       <div class="text-[#6b7280] text-xs uppercase tracking-widest">
+        Scroll
+       </div>
+       <div class="w-px h-12 bg-gradient-to-b from-[#c2410c]/50 to-transparent"></div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Core Services Section -->
+   <section id="services" class="relative py-32 gradient-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+     <div class="text-center mb-20">
+      <p class="text-[#c2410c] text-sm tracking-[0.3em] uppercase mb-4 fade-in">Engineering Services</p>
+      <h2 id="services-heading" class="text-4xl md:text-5xl font-semibold tracking-tight text-white fade-in fade-in-delay-1">Core Capabilities</h2>
+     </div>
+     <div class="grid md:grid-cols-3 gap-8"><!-- DevOps & Platform Engineering -->
+      <div class="service-card bg-[#1a1a1a] border border-white/5 rounded-lg p-8 fade-in fade-in-delay-2">
+       <div class="service-icon w-14 h-14 rounded-lg bg-[#c2410c]/10 flex items-center justify-center mb-6">
+        <svg class="w-7 h-7 text-[#c2410c]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-semibold text-white mb-4 tracking-wide">DevOps &amp; Platform Engineering</h3>
+       <p class="text-[#9ca3af] leading-relaxed text-sm">Automation-first systems, CI/CD pipelines, infrastructure as code. Building reliable, scalable platforms with operational excellence at the core.</p>
+       <div class="mt-6 pt-6 border-t border-white/5">
+        <ul class="space-y-2 text-sm text-[#9ca3af]">
+         <li class="flex items-center gap-2"><span class="w-1 h-1 bg-[#c2410c] rounded-full"></span> CI/CD Pipeline Design</li>
+         <li class="flex items-center gap-2"><span class="w-1 h-1 bg-[#c2410c] rounded-full"></span> Infrastructure as Code</li>
+         <li class="flex items-center gap-2"><span class="w-1 h-1 bg-[#c2410c] rounded-full"></span> Site Reliability Engineering</li>
+        </ul>
+       </div>
+      </div><!-- Cloud Architecture -->
+      <div class="service-card bg-[#1a1a1a] border border-white/5 rounded-lg p-8 fade-in fade-in-delay-3">
+       <div class="service-icon w-14 h-14 rounded-lg bg-[#c2410c]/10 flex items-center justify-center mb-6">
+        <svg class="w-7 h-7 text-[#c2410c]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-semibold text-white mb-4 tracking-wide">Cloud Architecture &amp; Engineering</h3>
+       <p class="text-[#9ca3af] leading-relaxed text-sm">Designing, reviewing, and optimizing scalable, secure, and future-ready cloud platforms across all environments.</p>
+       <div class="mt-6 pt-6 border-t border-white/5">
+        <ul class="space-y-2 text-sm text-[#9ca3af]">
+         <li class="flex items-center gap-2"><span class="w-1 h-1 bg-[#c2410c] rounded-full"></span> Multi-Cloud Strategy</li>
+         <li class="flex items-center gap-2"><span class="w-1 h-1 bg-[#c2410c] rounded-full"></span> Security Architecture</li>
+         <li class="flex items-center gap-2"><span class="w-1 h-1 bg-[#c2410c] rounded-full"></span> Migration &amp; Modernization</li>
+        </ul>
+       </div>
+      </div><!-- AI Systems -->
+      <div class="service-card bg-[#1a1a1a] border border-white/5 rounded-lg p-8 fade-in fade-in-delay-4">
+       <div class="service-icon w-14 h-14 rounded-lg bg-[#c2410c]/10 flex items-center justify-center mb-6">
+        <svg class="w-7 h-7 text-[#c2410c]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-semibold text-white mb-4 tracking-wide">AI Systems &amp; Intelligent Automation</h3>
+       <p class="text-[#9ca3af] leading-relaxed text-sm">Production-ready AI systems and intelligent automation deeply integrated into real-world platforms.</p>
+       <div class="mt-6 pt-6 border-t border-white/5">
+        <ul class="space-y-2 text-sm text-[#9ca3af]">
+         <li class="flex items-center gap-2"><span class="w-1 h-1 bg-[#c2410c] rounded-full"></span> ML Operations</li>
+         <li class="flex items-center gap-2"><span class="w-1 h-1 bg-[#c2410c] rounded-full"></span> Intelligent Workflows</li>
+         <li class="flex items-center gap-2"><span class="w-1 h-1 bg-[#c2410c] rounded-full"></span> AI Integration</li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Supporting Services Section -->
+   <section id="expertise" class="relative py-32 bg-[#1a1a1a] gradient-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+     <div class="text-center mb-20">
+      <p class="text-[#c2410c] text-sm tracking-[0.3em] uppercase mb-4 fade-in">Extended Expertise</p>
+      <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white fade-in fade-in-delay-1">Supporting Services</h2>
+     </div>
+     <div class="grid md:grid-cols-3 gap-8"><!-- Cloud Cost Optimization -->
+      <div class="service-card bg-[#0a0a0a] border border-white/5 rounded-lg p-8 fade-in fade-in-delay-2">
+       <div class="service-icon w-12 h-12 rounded-lg bg-[#c2410c]/10 flex items-center justify-center mb-6">
+        <svg class="w-6 h-6 text-[#c2410c]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+       </div>
+       <h3 class="text-lg font-semibold text-white mb-3">Cloud Cost Reviews &amp; Optimization</h3>
+       <p class="text-[#9ca3af] text-sm leading-relaxed">Identifying inefficiencies, improving performance, and reducing cloud spend without compromising reliability.</p>
+      </div><!-- API & Backend Engineering -->
+      <div class="service-card bg-[#0a0a0a] border border-white/5 rounded-lg p-8 fade-in fade-in-delay-3">
+       <div class="service-icon w-12 h-12 rounded-lg bg-[#c2410c]/10 flex items-center justify-center mb-6">
+        <svg class="w-6 h-6 text-[#c2410c]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+       </div>
+       <h3 class="text-lg font-semibold text-white mb-3">API &amp; Backend Engineering</h3>
+       <p class="text-[#9ca3af] text-sm leading-relaxed">Secure, scalable APIs and backend systems built for high-throughput platforms and enterprise workloads.</p>
+      </div><!-- Web Application Development -->
+      <div class="service-card bg-[#0a0a0a] border border-white/5 rounded-lg p-8 fade-in fade-in-delay-4">
+       <div class="service-icon w-12 h-12 rounded-lg bg-[#c2410c]/10 flex items-center justify-center mb-6">
+        <svg class="w-6 h-6 text-[#c2410c]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        </svg>
+       </div>
+       <h3 class="text-lg font-semibold text-white mb-3">Modern Web Engineering</h3>
+       <p class="text-[#9ca3af] text-sm leading-relaxed">Modern web applications built on strong DevOps and cloud foundations for scale and maintainability.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Approach Section -->
+   <section id="approach" class="relative py-32 gradient-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+     <div class="grid lg:grid-cols-1 gap-16 items-center max-w-4xl mx-auto">
+      <div>
+       <p class="text-[#c2410c] text-sm tracking-[0.3em] uppercase mb-4 fade-in">Our Approach</p>
+       <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-8 fade-in fade-in-delay-1">Engineering-First<br>
+        Partnership</h2>
+       <p class="text-[#9ca3af] text-lg leading-relaxed mb-8 fade-in fade-in-delay-2">We build systems designed for the long term. Every architecture decision, every line of infrastructure code, every automation pipeline is crafted with reliability, scalability, and operational excellence in mind.</p>
+       <div class="space-y-6 fade-in fade-in-delay-3">
+        <div class="flex items-start gap-4">
+         <div class="w-10 h-10 rounded-lg bg-[#c2410c]/10 flex items-center justify-center flex-shrink-0 mt-1"><span class="text-[#c2410c] font-semibold">01</span>
+         </div>
+         <div>
+          <h4 class="text-white font-medium mb-1">Deep Technical Understanding</h4>
+          <p class="text-[#9ca3af] text-sm">We analyze your systems thoroughly before proposing solutions.</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-4">
+         <div class="w-10 h-10 rounded-lg bg-[#c2410c]/10 flex items-center justify-center flex-shrink-0 mt-1"><span class="text-[#c2410c] font-semibold">02</span>
+         </div>
+         <div>
+          <h4 class="text-white font-medium mb-1">Precision Engineering</h4>
+          <p class="text-[#9ca3af] text-sm">Every component is designed with purpose and measured for impact.</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-4">
+         <div class="w-10 h-10 rounded-lg bg-[#c2410c]/10 flex items-center justify-center flex-shrink-0 mt-1"><span class="text-[#c2410c] font-semibold">03</span>
+         </div>
+         <div>
+          <h4 class="text-white font-medium mb-1">Long-Term Thinking</h4>
+          <p class="text-[#9ca3af] text-sm">We build for scale, maintainability, and operational sustainability.</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Value Proposition Section -->
+   <section class="py-24 bg-[#1a1a1a] gradient-border">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div class="fade-in">
+       <div class="text-3xl md:text-4xl font-semibold text-white mb-3">
+        Technical Excellence
+       </div>
+       <div class="text-[#c2410c] text-xs uppercase tracking-widest mb-3">
+        Core Principle
+       </div>
+       <div class="text-[#9ca3af] text-sm leading-relaxed">
+        Deep expertise in modern infrastructure, DevOps practices, and cloud-native systems
+       </div>
+      </div>
+      <div class="fade-in fade-in-delay-1">
+       <div class="text-3xl md:text-4xl font-semibold text-white mb-3">
+        Growth Partner
+       </div>
+       <div class="text-[#c2410c] text-xs uppercase tracking-widest mb-3">
+        Our Approach
+       </div>
+       <div class="text-[#9ca3af] text-sm leading-relaxed">
+        We're building our client base with the same precision we bring to engineering
+       </div>
+      </div>
+      <div class="fade-in fade-in-delay-2">
+       <div class="text-3xl md:text-4xl font-semibold text-white mb-3">
+        Competitive Value
+       </div>
+       <div class="text-[#c2410c] text-xs uppercase tracking-widest mb-3">
+        Your Advantage
+       </div>
+       <div class="text-[#9ca3af] text-sm leading-relaxed">
+        High-quality engineering services at rates that work for growing businesses
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="relative py-32 gradient-border">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+     <div class="text-center mb-16">
+      <p class="text-[#c2410c] text-sm tracking-[0.3em] uppercase mb-4 fade-in">Get Started</p>
+      <h2 id="contact-heading" class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-6 fade-in fade-in-delay-1">Start a Conversation</h2>
+      <p class="text-[#9ca3af] text-lg fade-in fade-in-delay-2">Ready to build reliable, scalable systems? Let's discuss your requirements.</p>
+     </div>
+     <form id="contact-form" class="space-y-6 fade-in fade-in-delay-3">
+      <div class="grid md:grid-cols-2 gap-6">
+       <div><label for="name" class="block text-sm text-[#9ca3af] mb-2 tracking-wide">Full Name</label> <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-[#9ca3af]/50 transition-all duration-300" placeholder="Your name">
+       </div>
+       <div><label for="email" class="block text-sm text-[#9ca3af] mb-2 tracking-wide">Email Address</label> <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-[#9ca3af]/50 transition-all duration-300" placeholder="you@company.com">
+       </div>
+      </div>
+      <div><label for="company" class="block text-sm text-[#9ca3af] mb-2 tracking-wide">Company</label> <input type="text" id="company" name="company" class="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-[#9ca3af]/50 transition-all duration-300" placeholder="Company name">
+      </div>
+      <div><label for="service" class="block text-sm text-[#9ca3af] mb-2 tracking-wide">Service Interest</label> <select id="service" name="service" class="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded text-white transition-all duration-300"> <option value="" class="bg-[#1a1a1a]">Select a service</option> <option value="devops" class="bg-[#1a1a1a]">DevOps &amp; Platform Engineering</option> <option value="cloud" class="bg-[#1a1a1a]">Cloud Architecture &amp; Engineering</option> <option value="ai" class="bg-[#1a1a1a]">AI Systems &amp; Intelligent Automation</option> <option value="optimization" class="bg-[#1a1a1a]">Cloud Cost Reviews &amp; Optimization</option> <option value="api" class="bg-[#1a1a1a]">API &amp; Backend Engineering</option> <option value="web" class="bg-[#1a1a1a]">Modern Web Engineering</option> </select>
+      </div>
+      <div><label for="message" class="block text-sm text-[#9ca3af] mb-2 tracking-wide">Project Details</label> <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-[#9ca3af]/50 transition-all duration-300 resize-none" placeholder="Describe your project requirements..."></textarea>
+      </div>
+      <div class="text-center pt-4"><button type="submit" class="btn-primary px-12 py-4 bg-[#c2410c] text-white font-medium tracking-wide rounded inline-flex items-center gap-3"> <span>Submit Inquiry</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg></button>
+      </div>
+     </form><!-- Success Message -->
+     <div id="success-message" class="hidden text-center py-12">
+      <div class="w-16 h-16 rounded-full bg-[#c2410c]/10 flex items-center justify-center mx-auto mb-6">
+       <svg class="w-8 h-8 text-[#c2410c]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+       </svg>
+      </div>
+      <h3 class="text-2xl font-semibold text-white mb-3">Inquiry Received</h3>
+      <p class="text-[#9ca3af]">We'll review your requirements and respond within 24 hours.</p>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-16 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+     <div class="flex items-center justify-between"><!-- Logo -->
+      <div class="flex items-center gap-3">
+       <div class="logo-mark w-10 h-10 bg-gradient-to-br from-[#c2410c] to-[#9a3412] rounded-lg flex items-center justify-center cursor-pointer"><span class="text-white font-bold text-xl">H</span>
+       </div><span class="text-xl font-bold tracking-wide text-white">HRIDITH</span>
+      </div><!-- Copyright -->
+      <div class="text-sm text-[#6b7280]">
+       © 2026 Hridith Technology Studio. All rights reserved.
+      </div>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      hero_statement: 'Building resilient systems for the modern enterprise',
+      hero_description: 'We architect, automate, and optimize infrastructure at scale. Deep technical expertise in DevOps, Cloud, and AI-driven systems.',
+      services_heading: 'Core Capabilities',
+      contact_heading: 'Start a Conversation',
+      background_color: '#0a0a0a',
+      surface_color: '#1a1a1a',
+      text_color: '#ffffff',
+      text_secondary_color: '#9ca3af',
+      accent_color: '#06b6d4',
+      font_family: 'Inter',
+      font_size: 16
+    };
+    
+    let config = { ...defaultConfig };
+    
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+    
+    // Form submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('contact-form').classList.add('hidden');
+      document.getElementById('success-message').classList.remove('hidden');
+    });
+    
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+    
+    // Config change handler
+    async function onConfigChange(newConfig) {
+      config = { ...defaultConfig, ...newConfig };
+      
+      // Update hero statement
+      const heroStatement = document.getElementById('hero-statement');
+      if (heroStatement) {
+        heroStatement.textContent = config.hero_statement || defaultConfig.hero_statement;
+      }
+      
+      // Update hero description
+      const heroDescription = document.getElementById('hero-description');
+      if (heroDescription) {
+        heroDescription.textContent = config.hero_description || defaultConfig.hero_description;
+      }
+      
+      // Update services heading
+      const servicesHeading = document.getElementById('services-heading');
+      if (servicesHeading) {
+        servicesHeading.textContent = config.services_heading || defaultConfig.services_heading;
+      }
+      
+      // Update contact heading
+      const contactHeading = document.getElementById('contact-heading');
+      if (contactHeading) {
+        contactHeading.textContent = config.contact_heading || defaultConfig.contact_heading;
+      }
+      
+      // Update colors
+      document.documentElement.style.setProperty('--bg-primary', config.background_color || defaultConfig.background_color);
+      document.documentElement.style.setProperty('--bg-secondary', config.surface_color || defaultConfig.surface_color);
+      document.documentElement.style.setProperty('--text-primary', config.text_color || defaultConfig.text_color);
+      document.documentElement.style.setProperty('--text-secondary', config.text_secondary_color || defaultConfig.text_secondary_color);
+      document.documentElement.style.setProperty('--accent', config.accent_color || defaultConfig.accent_color);
+      
+      // Update font
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      document.body.style.fontFamily = `${fontFamily}, -apple-system, BlinkMacSystemFont, sans-serif`;
+    }
+    
+    // Map to capabilities
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.text_secondary_color || defaultConfig.text_secondary_color,
+            set: (value) => {
+              config.text_secondary_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ text_secondary_color: value });
+            }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              config.accent_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ accent_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+    
+    // Map to edit panel values
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['hero_statement', config.hero_statement || defaultConfig.hero_statement],
+        ['hero_description', config.hero_description || defaultConfig.hero_description],
+        ['services_heading', config.services_heading || defaultConfig.services_heading],
+        ['contact_heading', config.contact_heading || defaultConfig.contact_heading]
+      ]);
+    }
+    
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c573fd003683c07',t:'MTc2OTY3NDE4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

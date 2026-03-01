@@ -1,0 +1,33 @@
+name: Azure Static Web Apps CI/CD
+
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+jobs:
+- job: build_and_deploy_job
+  displayName: Build and Deploy Static Website
+  pool: mac-agent
+
+  variables:
+  - group: Azure-Static-Web-Apps-salmon-ground-0f068e900-variable-group
+
+  steps:
+  - checkout: self
+    submodules: true
+
+  - task: AzureStaticWebApp@0
+    displayName: Deploy to Azure Static Web Apps
+    inputs:
+      azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN_SALMON_GROUND_0F068E900)
+
+      app_location: "/"        # index.html is at repo root
+      api_location: ""         # no backend
+      output_location: ""      # no build output
+      skip_app_build: true     # IMPORTANT for pure HTML
